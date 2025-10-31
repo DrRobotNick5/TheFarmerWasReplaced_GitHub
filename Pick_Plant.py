@@ -1,6 +1,4 @@
-from main import num_row_plants
-
-def plant_logic():
+def plant_logic(num_row_plants):
 	if get_pos_x() % num_row_plants == 0:
 		if get_ground_type() == Grounds.Soil:
 			till()
