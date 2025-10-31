@@ -1,13 +1,15 @@
 def plant_logic(num_row_plants):
-	if get_pos_x() % num_row_plants == 0:
+	x = get_pos_x()
+	y = get_pos_y()
+	if  (x+y) % num_row_plants == 0:
 		if get_ground_type() == Grounds.Soil:
 			till()
 		plant(Entities.Grass)
-	if get_pos_x() % num_row_plants == 1:
+	if (x+y) % num_row_plants == 1:
 		if get_ground_type() == Grounds.Soil:
 			till()
-		plant(Entities.Bush)
-	if get_pos_x() % num_row_plants == 2:
+		plant(Entities.Tree)
+	if (x+y) % num_row_plants == 2:
 		if get_ground_type() == Grounds.Grassland:
 			till()
 		plant(Entities.Carrot)
