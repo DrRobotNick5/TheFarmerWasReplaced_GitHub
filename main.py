@@ -13,8 +13,8 @@ while 1:
 	
 	pumpkin_tally = Pick_Plant.plant_logic(num_row_plants, pumpkin_tally)
 	
-	if get_water() < .75:
+	if get_water() < .5:
 		use_item(Items.Water)
-	elif get_water() < .5:
 		use_item(Items.Water)
+	elif get_water() < .75:
 		use_item(Items.Water)
