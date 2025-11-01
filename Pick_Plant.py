@@ -18,7 +18,7 @@ def plant_logic(num_row_plants, pumpkin_tally):
 		else:
 			pumpkin_tally +=1
 			
-		if pumpkin_tally == max_pumpkin**2:
+		if pumpkin_tally >= (max_pumpkin/1)**2:
 			harvest()
 			pumpkin_tally = 0
 
