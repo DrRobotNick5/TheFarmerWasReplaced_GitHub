@@ -15,4 +15,6 @@ while 1:
 	
 	if get_water() < .75:
 		use_item(Items.Water)
-		
+	elif get_water() < .5:
+		use_item(Items.Water)
+		use_item(Items.Water)
