@@ -1,4 +1,4 @@
-def plant_logic(num_row_plants, pumpkin_tally):
+def plant_logic(num_row_plants, pumpkin_tally, sunflower_list):
 	x = get_pos_x()
 	y = get_pos_y()
 	size = get_world_size()
@@ -61,8 +61,21 @@ def plant_logic(num_row_plants, pumpkin_tally):
 					harvest()
 			if get_ground_type() == Grounds.Grassland:
 				till()
-			plant(Entities.Sunflower)
-			measure()
+			
+			in_list = False
+			if len(sunflower_list) > 1:
+				for i in range(len(sunflower_list)):
+					if sunflower_list[i][1][0] == x and sunflower_list[i][1][1] == y:
+						in_list = True
+
+
+			if in_list == False:	
+				if get_entity_type() == None:
+					plant(Entities.Sunflower)
+				count = measure()
+				sunflower_list.append([count, [x,y]])
+				#print(sunflower_list)
+
 			
 	
-	return pumpkin_tally
+	return pumpkin_tally, sunflower_list
