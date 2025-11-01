@@ -30,24 +30,39 @@ def plant_logic(num_row_plants, pumpkin_tally):
 
 
 	else:
-		if can_harvest():
-			harvest()
-		
 		if  (x+y) % num_row_plants == 0:
 			change_hat(Hats.Straw_Hat)
+			if can_harvest():
+				harvest()
 			if get_ground_type() == Grounds.Soil:
 				till()
 			plant(Entities.Grass)
+
 		if (x+y) % num_row_plants == 1:
 			change_hat(Hats.Tree_Hat)
+			if can_harvest():
+				harvest()
 			if get_ground_type() == Grounds.Soil:
 				till()
 			plant(Entities.Tree)
+
 		if (x+y) % num_row_plants == 2:
 			change_hat(Hats.Carrot_Hat)
+			if can_harvest():
+				harvest()
 			if get_ground_type() == Grounds.Grassland:
 				till()
 			plant(Entities.Carrot)
+
+		if (x+y) % num_row_plants == 3:
+			#change_hat(Hats.Sunflower_Hat)
+			if get_entity_type() != Entities.Sunflower:
+				if can_harvest():
+					harvest()
+			if get_ground_type() == Grounds.Grassland:
+				till()
+			plant(Entities.Sunflower)
+			measure()
 			
 	
 	return pumpkin_tally

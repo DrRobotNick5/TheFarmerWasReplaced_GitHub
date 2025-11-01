@@ -1,8 +1,8 @@
 import Pick_Plant
 import Movement
 
-num_row_plants = 3
-number_of_plants = 4
+num_row_plants = 4
+number_of_plants = num_row_plants + 1
 
 dirValue = 0
 pumpkin_tally = 0
