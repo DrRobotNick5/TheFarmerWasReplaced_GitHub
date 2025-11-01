@@ -56,6 +56,19 @@ def plant_logic(num_row_plants, pumpkin_tally, sunflower_list):
 
 		if (x+y) % num_row_plants == 3:
 			#change_hat(Hats.Sunflower_Hat)
+			
+			is_max = False
+			if len(sunflower_list) > 1:
+				for i in range(len(sunflower_list)):
+					if sunflower_list[i][0] == 15:
+						is_max = True
+					elif sunflower_list[i][1][0] == x and sunflower_list[i][1][1] == y:
+						for j in range(len(sunflower_list)):
+							if sunflower_list[j][0] < sunflower_list[i][0]:
+								is_max = True
+			if is_max == True:
+				harvest()
+			
 			if get_entity_type() != Entities.Sunflower:
 				if can_harvest():
 					harvest()
@@ -67,8 +80,6 @@ def plant_logic(num_row_plants, pumpkin_tally, sunflower_list):
 				for i in range(len(sunflower_list)):
 					if sunflower_list[i][1][0] == x and sunflower_list[i][1][1] == y:
 						in_list = True
-
-
 			if in_list == False:	
 				if get_entity_type() == None:
 					plant(Entities.Sunflower)
