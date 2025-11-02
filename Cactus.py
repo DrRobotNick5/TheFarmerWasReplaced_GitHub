@@ -57,5 +57,5 @@ while 1:
 
 	dirValue = Movement.Movement(dirValue)
 	
-	if mesure()!=None:
+	if measure()!=None:
 		run_once = 1
