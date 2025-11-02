@@ -1,4 +1,4 @@
-def plant_logic(num_row_plants, pumpkin_tally, sunflower_list):
+def plant_logic(num_row_plants, pumpkin_tally, sunflower_list, enable_sunflower):
 	x = get_pos_x()
 	y = get_pos_y()
 	size = get_world_size()
@@ -30,29 +30,30 @@ def plant_logic(num_row_plants, pumpkin_tally, sunflower_list):
 
 
 	else:
-		if  (x+y) % num_row_plants == 0:
-			change_hat(Hats.Straw_Hat)
-			if can_harvest():
-				harvest()
-			if get_ground_type() == Grounds.Soil:
-				till()
-			plant(Entities.Grass)
+		if get_entity_type() != Entities.Sunflower:
+			if  (x+y) % num_row_plants == 0:
+				change_hat(Hats.Straw_Hat)
+				if can_harvest():
+					harvest()
+				if get_ground_type() == Grounds.Soil:
+					till()
+				plant(Entities.Grass)
 
-		if (x+y) % num_row_plants == 1:
-			change_hat(Hats.Tree_Hat)
-			if can_harvest():
-				harvest()
-			if get_ground_type() == Grounds.Soil:
-				till()
-			plant(Entities.Tree)
+			if (x+y) % num_row_plants == 1:
+				change_hat(Hats.Tree_Hat)
+				if can_harvest():
+					harvest()
+				if get_ground_type() == Grounds.Soil:
+					till()
+				plant(Entities.Tree)
 
-		if (x+y) % num_row_plants == 2:
-			change_hat(Hats.Carrot_Hat)
-			if can_harvest():
-				harvest()
-			if get_ground_type() == Grounds.Grassland:
-				till()
-			plant(Entities.Carrot)
+			if (x+y) % num_row_plants == 2:
+				change_hat(Hats.Carrot_Hat)
+				if can_harvest():
+					harvest()
+				if get_ground_type() == Grounds.Grassland:
+					till()
+				plant(Entities.Carrot)
 
 		if (x+y) % num_row_plants == 3:
 			#change_hat(Hats.Sunflower_Hat)
@@ -75,7 +76,7 @@ def plant_logic(num_row_plants, pumpkin_tally, sunflower_list):
 								sunflower_list.pop(i)
 			if is_max == True:
 				harvest()
-				enable_plant = False
+				enable_sunflower = False
 			
 			if get_entity_type() != Entities.Sunflower:
 				if can_harvest():
@@ -90,8 +91,8 @@ def plant_logic(num_row_plants, pumpkin_tally, sunflower_list):
 						in_list = True
 			
 			if len(sunflower_list) < 1:
-				enable_plant = True
-			if enable_plant == True:
+				enable_sunflower = True
+			if enable_sunflower == True:
 				if in_list == False:	
 					if get_entity_type() == None:
 						plant(Entities.Sunflower)
@@ -99,8 +100,8 @@ def plant_logic(num_row_plants, pumpkin_tally, sunflower_list):
 					sunflower_list.append([count, [x,y]])
 					#print(sunflower_list)
 			else:
-				plant_logic(num_row_plants-1,pumpkin_tally,sunflower_list)
-
+				plant_logic(num_row_plants-1,pumpkin_tally,sunflower_list,False)
+		quick_print(len(sunflower_list))
 			
 	
-	return pumpkin_tally, sunflower_list
+	return pumpkin_tally, sunflower_list, enable_sunflower
