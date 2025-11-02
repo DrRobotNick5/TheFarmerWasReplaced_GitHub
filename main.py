@@ -1,6 +1,8 @@
 import Pick_Plant
 import Movement
 
+clear()
+
 num_row_plants = 4
 number_of_plants = num_row_plants + 1
 
