@@ -62,12 +62,14 @@ def plant_logic(num_row_plants, pumpkin_tally, sunflower_list, enable_sunflower)
 			count_array_compare = 0
 			if len(sunflower_list) > 1:
 				for i in range(len(sunflower_list)-1):
-					if sunflower_list[i][0] == 15:
-						if sunflower_list[i][1][0] == x and sunflower_list[i][1][1] == y:
+					if sunflower_list[i][1][0] == x and sunflower_list[i][1][1] == y:
+						if sunflower_list[i][0] == 15:
 							is_max = True
 							sunflower_list.pop(i)
-					else:			
-						if sunflower_list[i][1][0] == x and sunflower_list[i][1][1] == y:			
+						elif sunflower_list[i][0] <= 10:
+							harvest()
+							sunflower_list.pop(i)
+						else:			
 							for j in range(len(sunflower_list)-1):
 								if sunflower_list[j][0] <= sunflower_list[i][0]:
 									count_array_compare += 1
@@ -90,7 +92,7 @@ def plant_logic(num_row_plants, pumpkin_tally, sunflower_list, enable_sunflower)
 					if sunflower_list[i][1][0] == x and sunflower_list[i][1][1] == y:
 						in_list = True
 			
-			if len(sunflower_list) < 1:
+			if len(sunflower_list) < 11: #replant over 
 				enable_sunflower = True
 			if enable_sunflower == True:
 				if in_list == False:	
@@ -101,7 +103,7 @@ def plant_logic(num_row_plants, pumpkin_tally, sunflower_list, enable_sunflower)
 					#print(sunflower_list)
 			else:
 				plant_logic(num_row_plants-1,pumpkin_tally,sunflower_list,False)
-		quick_print(len(sunflower_list))
+		#quick_print(len(sunflower_list))
 			
 	
 	return pumpkin_tally, sunflower_list, enable_sunflower
