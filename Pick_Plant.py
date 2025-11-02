@@ -58,14 +58,21 @@ def plant_logic(num_row_plants, pumpkin_tally, sunflower_list):
 			#change_hat(Hats.Sunflower_Hat)
 			
 			is_max = False
+			count_array_compare = 0
 			if len(sunflower_list) > 1:
-				for i in range(len(sunflower_list)):
+				for i in range(len(sunflower_list)-1):
 					if sunflower_list[i][0] == 15:
-						is_max = True
-					elif sunflower_list[i][1][0] == x and sunflower_list[i][1][1] == y:
-						for j in range(len(sunflower_list)):
-							if sunflower_list[j][0] < sunflower_list[i][0]:
+						if sunflower_list[i][1][0] == x and sunflower_list[i][1][1] == y:
+							is_max = True
+							sunflower_list.pop(i)
+					else:			
+						if sunflower_list[i][1][0] == x and sunflower_list[i][1][1] == y:			
+							for j in range(len(sunflower_list)-1):
+								if sunflower_list[j][0] <= sunflower_list[i][0]:
+									count_array_compare += 1
+							if count_array_compare == len(sunflower_list)-1:
 								is_max = True
+								sunflower_list.pop(i)
 			if is_max == True:
 				harvest()
 			
@@ -77,7 +84,7 @@ def plant_logic(num_row_plants, pumpkin_tally, sunflower_list):
 			
 			in_list = False
 			if len(sunflower_list) > 1:
-				for i in range(len(sunflower_list)):
+				for i in range(len(sunflower_list)-1):
 					if sunflower_list[i][1][0] == x and sunflower_list[i][1][1] == y:
 						in_list = True
 			if in_list == False:	
