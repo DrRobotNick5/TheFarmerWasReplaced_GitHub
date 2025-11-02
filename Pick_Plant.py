@@ -75,6 +75,7 @@ def plant_logic(num_row_plants, pumpkin_tally, sunflower_list):
 								sunflower_list.pop(i)
 			if is_max == True:
 				harvest()
+				enable_plant = False
 			
 			if get_entity_type() != Entities.Sunflower:
 				if can_harvest():
@@ -87,12 +88,18 @@ def plant_logic(num_row_plants, pumpkin_tally, sunflower_list):
 				for i in range(len(sunflower_list)-1):
 					if sunflower_list[i][1][0] == x and sunflower_list[i][1][1] == y:
 						in_list = True
-			if in_list == False:	
-				if get_entity_type() == None:
-					plant(Entities.Sunflower)
-				count = measure()
-				sunflower_list.append([count, [x,y]])
-				#print(sunflower_list)
+			
+			if len(sunflower_list) < 1:
+				enable_plant = True
+			if enable_plant == True:
+				if in_list == False:	
+					if get_entity_type() == None:
+						plant(Entities.Sunflower)
+					count = measure()
+					sunflower_list.append([count, [x,y]])
+					#print(sunflower_list)
+			else:
+				plant_logic(num_row_plants-1,pumpkin_tally,sunflower_list)
 
 			
 	
