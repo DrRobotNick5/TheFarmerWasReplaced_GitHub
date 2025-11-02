@@ -56,7 +56,7 @@ def plant_logic(num_row_plants, pumpkin_tally, sunflower_list, enable_sunflower)
 				plant(Entities.Carrot)
 
 		if (x+y) % num_row_plants == 3:
-			#change_hat(Hats.Sunflower_Hat)
+			change_hat(Hats.Sunflower_Hat)
 			
 			is_max = False
 			count_array_compare = 0
