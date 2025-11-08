@@ -64,16 +64,16 @@ while 1:
 	
 	else:
 		if length + tail_buffer < world*2:
-			if x % 2 == 0 and direction_x <= 1 and direction_y > 0 and bottom_half_of_world == False :
+			if x % 2 == 0 and direction_x >= 0 and direction_x < 2 and direction_y > 0 and bottom_half_of_world == False :
 				check_move(North)
-			elif x % 2 == 0 and direction_y == 0 and bottom_half_of_world == False and:
+			elif x % 2 == 0 and direction_y == 0 and bottom_half_of_world == False:
 				check_move(East)
 			elif x == world-1 and bottom_half_of_world == False:
 				check_move(South)
 			elif bottom_half_of_world == False:
 				check_move(East)
 			
-			if x % 2 == 1 and direction_x >= -1 and direction_y < 0 and bottom_half_of_world == True:
+			if x % 2 == 1 and direction_x <= 0 and direction_x > -2 and direction_y < 0 and bottom_half_of_world == True:
 				check_move(South)
 			elif x % 2 == 1 and direction_y == 0 and bottom_half_of_world == True :
 				check_move(West)
