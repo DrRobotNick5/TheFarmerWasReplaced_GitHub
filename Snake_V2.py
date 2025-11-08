@@ -47,41 +47,38 @@ while 1:
 	
 	if direction_x == 0 and direction_y == 0:
 		apple_x, apple_y = measure()
-		increment_length = True
+		length += 1
 		To_Center = True
-		apple_stop == True
 	
 	if To_Center == True:
-		if x % 2 == 0 and y < (world-1)/2:
+		if x % 2 == 0 and y < (world-1)//2:
 			check_move(North)
-		elif x % 2 == 1 and y < (world-1)/2:
+		elif x % 2 == 1 and y < (world-1)//2:
 			check_move(West)
-		elif x % 2 == 1 and y > (world-1)/2+1:
+		elif x % 2 == 1 and y > (world-1)//2+1:
 			check_move(South)
-		elif x % 2 == 0 and y > (world-1)/2+1:
+		elif x % 2 == 0 and y > (world-1)//2+1:
 			check_move(East)
 		else:
 			To_Center = False
 	
 	else:
 		if length + tail_buffer < world*2:
-			if x % 2 == 0 and direction_x <= 1 and direction_y > 0 and bottom_half_of_world == False and apple_stop == False:
+			if x % 2 == 0 and direction_x <= 1 and direction_y > 0 and bottom_half_of_world == False :
 				check_move(North)
-			elif x % 2 == 0 and direction_y == 0 and bottom_half_of_world == False and apple_stop == False:
+			elif x % 2 == 0 and direction_y == 0 and bottom_half_of_world == False and:
 				check_move(East)
 			elif x == world-1 and bottom_half_of_world == False:
 				check_move(South)
-				apple_stop = False
 			elif bottom_half_of_world == False:
 				check_move(East)
 			
-			if x % 2 == 1 and direction_x >= -1 and direction_y < 0 and bottom_half_of_world == True and apple_stop == False:
+			if x % 2 == 1 and direction_x >= -1 and direction_y < 0 and bottom_half_of_world == True:
 				check_move(South)
-			elif x % 2 == 1 and direction_y == 0 and bottom_half_of_world == True and apple_stop == False:
+			elif x % 2 == 1 and direction_y == 0 and bottom_half_of_world == True :
 				check_move(West)
 			elif x == 0 and bottom_half_of_world == True:
 				check_move(North)
-				apple_stop = False
 			elif bottom_half_of_world == True:
 				check_move(West)
 		else:
