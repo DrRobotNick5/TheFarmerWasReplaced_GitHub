@@ -6,6 +6,7 @@ def update_snake_array():
 	if len(snake_array) > length+tail_buffer:
 		snake_set.remove((snake_array[0][0],snake_array[0][1]))
 		snake_array.pop(0)
+		tail_index = snake_array[0]
 		
 def check_move(direction):
 	if move(direction):
@@ -78,6 +79,7 @@ for i in range(world**2):
 		temp_y += 1
 	
 apple_index = hamltonian[(apple_x,apple_y)]
+tail_index = 0
 
 quick_print(hamltonian)
 	
@@ -87,6 +89,16 @@ while 1:
 	x = get_pos_x()
 	y = get_pos_y()
 	
+	check_up = 0
+	check_down = 0
+	check_right = 0
+	check_left = 0
+	collition_up = True
+	collition_down = True
+	collition_right = True
+	collition_left = True
+	shortcut = False
+
 	current_index = hamltonian[(x,y)]
 	next_x, next_y = hamltonian[current_index]
 	
@@ -98,14 +110,58 @@ while 1:
 		apple_index = hamltonian[(apple_x,apple_y)]
 		length += 1
 	
-	if next_x-x == 1:
-		check_move(East)
-	elif next_x-x == -1:
-		check_move(West)
-	elif next_y-y == 1:
-		check_move(North)
-	elif next_y-y == -1:
-		check_move(South)
+
+	if y != world-1:
+		check_up = hamltonian[(x,y+1)]
+		if hamltonian[check_up] in snake_set:
+			collition_up = True
+		else:
+			collition_up = False
+	if y != 0:
+		check_down = hamltonian[(x,y-1)]
+		if hamltonian[check_down] in snake_set:
+			collition_down = True
+		else:
+			collition_down = False
+	if x != world-1:
+		check_right = hamltonian[(x+1,y)]
+		if hamltonian[check_right] in snake_set:
+			collition_right = True
+		else:
+			collition_right = False
+	if x != 0:
+		check_left = hamltonian[(x-1,y)]
+		if hamltonian[check_left] in snake_set:
+			collition_left = True
+		else:
+			collition_left = False
+
+
+	if collition_up == False:
+		if check_up < tail_index:
+			shortcut = True
+	if collition_down == False:
+		if check_down < tail_index:
+			shortcut = True
+	if collition_right == False:
+		if check_right < tail_index:
+			shortcut = True
+	if collition_left == False:
+		if check_left < tail_index:
+			shortcut = True
+
+	if shortcut == True:
+		best_direction = max()
+
+	else:
+		if next_x-x == 1:
+			check_move(East)
+		elif next_x-x == -1:
+			check_move(West)
+		elif next_y-y == 1:
+			check_move(North)
+		elif next_y-y == -1:
+			check_move(South)
 	
 	if end == True:
 		#change_hat(Hats.Brown_Hat)
