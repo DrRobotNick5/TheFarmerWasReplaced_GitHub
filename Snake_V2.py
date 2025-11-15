@@ -100,7 +100,10 @@ while 1:
 	shortcut = False
 
 	current_index = hamltonian[(x,y)]
-	next_x, next_y = hamltonian[current_index]
+	if current_index+1 < world**2:
+		next_x, next_y = hamltonian[current_index+1]
+	else: 
+		next_x, next_y = hamltonian[1]
 	
 	direction_x = apple_x - x
 	direction_y = apple_y - y
@@ -136,24 +139,41 @@ while 1:
 		else:
 			collition_left = False
 
-
+	short_apple_dist = {}
+	short_apple_direction = {}
 	if collition_up == False:
-		if check_up < tail_index:
+		if check_up < tail_index or check_up > current_index:
 			shortcut = True
+			short_apple_dist[1] = ((apple_x-hamltonian[check_up][0])**2+(apple_y-hamltonian[check_up][1])**2)
+			short_apple_direction[((apple_x-hamltonian[check_up][0])**2+(apple_y-hamltonian[check_up][1])**2)] = North
 	if collition_down == False:
-		if check_down < tail_index:
+		if check_down < tail_index or check_down > current_index:
 			shortcut = True
+			short_apple_dist[2] = ((apple_x-hamltonian[check_down][0])**2+(apple_y-hamltonian[check_down][1])**2)
+			short_apple_direction[((apple_x-hamltonian[check_down][0])**2+(apple_y-hamltonian[check_down][1])**2)] = South
 	if collition_right == False:
-		if check_right < tail_index:
+		if check_right < tail_index or check_right > current_index:
 			shortcut = True
+			short_apple_dist[3] = ((apple_x-hamltonian[check_right][0])**2+(apple_y-hamltonian[check_right][1])**2)
+			short_apple_direction[((apple_x-hamltonian[check_right][0])**2+(apple_y-hamltonian[check_right][1])**2)] = East
 	if collition_left == False:
-		if check_left < tail_index:
+		if check_left < tail_index or check_left > current_index:
 			shortcut = True
+			short_apple_dist[4] = ((apple_x-hamltonian[check_left][0])**2+(apple_y-hamltonian[check_left][1])**2)
+			short_apple_direction[((apple_x-hamltonian[check_left][0])**2+(apple_y-hamltonian[check_left][1])**2)] = West
+
 
 	if shortcut == True:
-		best_direction = max()
-
-	else:
+		shortcut_index = 987654321
+		for i in short_apple_dist:
+			if short_apple_dist[i] < shortcut_index:
+				shortcut_index = short_apple_dist[i]
+		if shortcut_index != 987654321:
+			check_move(short_apple_direction[shortcut_index])
+		else:
+			shortcut = False
+			
+	if shortcut == False:
 		if next_x-x == 1:
 			check_move(East)
 		elif next_x-x == -1:
