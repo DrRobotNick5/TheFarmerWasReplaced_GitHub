@@ -1,10 +1,17 @@
 def update_snake_array():
 	
-	snake_array.append([get_pos_x(),get_pos_y()])
-	snake_set.add((get_pos_x(),get_pos_y()))
+	x = get_pos_x()
+	y = get_pos_y()
+	
+	snake_array.append([x,y])
+	snake_set.append([x,y])
+	snake_set_x.append(x)
+	snake_set_y.append(y)
 	
 	if len(snake_array) > length+tail_buffer+1:
-		snake_set.remove((snake_array[0][0],snake_array[0][1]))
+		snake_set.remove([snake_array[0][0],snake_array[0][1]])
+		snake_set_x.remove(snake_array[0][0])
+		snake_set_y.remove(snake_array[0][1])
 		snake_array.pop(0)
 		
 def check_move(direction):
@@ -28,10 +35,12 @@ direction_x = apple_x - x
 direction_y = apple_y - y
 
 snake_array = []
-snake_set = set()
+snake_set = []
+snake_set_x = []
+snake_set_y = []
 hamltonian = {}
 length = 1
-tail_buffer = 3
+tail_buffer = 1
 end = False
 
 To_Center = True
@@ -112,6 +121,8 @@ while 1:
 	bottom_half = y <= (world-1)//2
 	right_half = x >= (world-1)//2+1
 	left_half = x <= (world-1)//2
+	tail_top_half = snake_array[0][1] >= (world-1)//2+1
+	tail_bottom_half = snake_array[0][1] <= (world-1)//2
 
 	current_index = hamltonian[(x,y)]
 	if current_index < world**2:
@@ -175,28 +186,28 @@ while 1:
 	short_apple_direction = []
 	
 	if collition_up == False:
-		if (check_up < tail_index or check_up > current_index) and (direction_x >= 0 and hamltonian[check_up][0]%2==0) or (direction_x > 0 and hamltonian[check_up][0]%2==1):
+		if (check_up < tail_index or check_up > current_index) and (direction_x >= 0 and hamltonian[check_up][0]%2==0) or (direction_x > 0 and hamltonian[check_up][0]%2==1) and y >= max(snake_set_y):
 			if check_up_w < apple_index:
 				shortcut = True
 				distance = ((apple_x-hamltonian[check_up][0])**2+(apple_y-hamltonian[check_up][1])**2)
 				short_apple_dist.append(distance)
 				short_apple_direction.append(North)
 	if collition_down == False:
-		if (check_down < tail_index or check_down > current_index) and (direction_x <= 0 and hamltonian[check_down][0]%2==1) or (direction_x < 0 and hamltonian[check_down][0]%2==0):
+		if (check_down < tail_index or check_down > current_index) and (direction_x <= 0 and hamltonian[check_down][0]%2==1) or (direction_x < 0 and hamltonian[check_down][0]%2==0) and y <= min(snake_set_y):
 			if check_down_w < apple_index:
 				shortcut = True
 				distance = ((apple_x-hamltonian[check_down][0])**2+(apple_y-hamltonian[check_down][1])**2)
 				short_apple_dist.append(distance)
 				short_apple_direction.append(South)
 	if collition_right == False:
-		if (check_right < tail_index or check_right > current_index) and top_half:
+		if (check_right < tail_index or check_right > current_index) and top_half and x >= max(snake_set_x):
 			if check_right_w < apple_index:
 				shortcut = True
 				distance = ((apple_x-hamltonian[check_right][0])**2+(apple_y-hamltonian[check_right][1])**2)
 				short_apple_dist.append(distance)
 				short_apple_direction.append(East)
 	if collition_left == False:
-		if (check_left < tail_index or check_left > current_index) and bottom_half:
+		if (check_left < tail_index or check_left > current_index) and bottom_half and x <= min(snake_set_x):
 			if check_left_w < apple_index:
 				shortcut = True
 				distance = ((apple_x-hamltonian[check_left][0])**2+(apple_y-hamltonian[check_left][1])**2)
